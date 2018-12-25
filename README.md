@@ -42,6 +42,9 @@ module.exports =  {
 
 ## Seaman-Client
 + Run the _Seaman-Client.js_ file
++ Wait for incoming events
++ Check https://etherscan.io/address/0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6 for pending transactions
++ Make sure, the contract at _0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6_ has enough Ether
 + DONE 
 
 
@@ -57,8 +60,6 @@ ContractConnector.ListenToSeamanMAINNET((element) => {
     console.log("--> SEMAN [" + element.blockNumber + "] " + element.event + ": " + element.returnValues[0]);
 });
 ```
-
-
 
 
 
