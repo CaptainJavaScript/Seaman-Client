@@ -1,37 +1,64 @@
-## Welcome to GitHub Pages
+# The Seaman-Client Library
+![useful image](Captain.jpg)
 
-You can use the [editor on GitHub](https://github.com/CaptainJavaScript/Seaman-Client/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Use this library to test the **SeamansExamples** as described here: https://github.com/CaptainJavaScript/Solidity/blob/master/README.md
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Necessary _npm_ Packages
+Please install _web3_ and _ethereumjs-tx_
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+## infura.io
++ Goto _infura.io_ and create a free account if you don't have one
++ Inside _infura.io_ create a new project that connects to **mainnet** 
++ Whitelist _SeamansExamples_ with address _0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6_ in your project
++ DONE
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+## Seaman-Lib
++ Edit the _Seaman-Lib.js_ file
++ Add your _infura.io_ project key 
++ Add your private wallet key with real Ether for mainnet
++ DONE 
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
+```JavaScript
+module.exports =  {
+
+    Web3ConnectionMAINNET: function() {
+        const URL = "https://mainnet.infura.io/v3/<your key>";  
+        const Web3 = require('web3');
+        var web3 = new Web3();
+        web3.setProvider(new Web3.providers.HttpProvider(URL));
+        return web3;
+    },
+
+    PrivateKey: function() {
+        return "<your key>";
+    },
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+## Seaman-Client
++ Run the _Seaman-Client.js_ file
++ DONE 
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/CaptainJavaScript/Seaman-Client/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
+```JavaScript
+const ContractConnector = require("./Seaman-Lib.js");
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+ContractConnector.Invoke_ActivateVoucher_AtSeamanMAINNET();
+ContractConnector.Invoke_CallbackExample_AtSeamanMAINNET();
+ContractConnector.Invoke_CentimeterToInchExample_AtSeamanMAINNET("19");
+ContractConnector.Invoke_WolframAlphaExample_AtSeamanMAINNET("France");
+
+ContractConnector.ListenToSeamanMAINNET((element) => {
+    console.log("--> SEMAN [" + element.blockNumber + "] " + element.event + ": " + element.returnValues[0]);
+});
+```
+
+
+
+
+
