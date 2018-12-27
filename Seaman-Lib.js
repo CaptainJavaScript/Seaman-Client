@@ -61,7 +61,7 @@ module.exports =  {
         return "./SeamansExamples.json";
     },
 
-    ListenToSeamanMAINNET: function(Callback) {
+        ListenToSeamanMAINNET: function(Callback) {
         const Web3 = this.Web3ConnectionMAINNET();
         const SeamansAddress = this.SeamansExamples_MAINNET_ADDRESS();
         const SeamansJSON = this.SeamansExamples_JSON();
@@ -70,10 +70,13 @@ module.exports =  {
 
         console.log("|- listening to Seaman's Example past events...");
         Web3.eth.getBlockNumber().then(MaxBlock => { 
-            var StartingBlock = this.SeamanStartingBlockMAINNET();
-            var BlockIncrement = 300;
+            var StartingBlock = this.LastBlock < this.SeamanStartingBlockMAINNET() ? this.SeamanStartingBlockMAINNET() : this.LastBlock + 1;
+            var BlockIncrement = 500;
             
-            console.log("|- starting block = " + StartingBlock + " // current block = " + MaxBlock + " / block increment = " + BlockIncrement);
+            if(!this.LastBlock)
+                this.LastBlock = 0;
+          
+            console.log("|- last block = " + this.LastBlock + " // starting block = " + StartingBlock + " // current block = " + MaxBlock + " // block increment = " + BlockIncrement);
             
             while(StartingBlock < MaxBlock) { 
                 SeamanEvents.getPastEvents({}, {fromBlock: StartingBlock,  toBlock: StartingBlock + BlockIncrement},
@@ -85,41 +88,34 @@ module.exports =  {
                             if(logs.length > 0) {
                                 console.log("length: " + logs.length);
                                 (logs).forEach(element => {
+                                    if(element.blockNumber > this.LastBlock)
+                                        this.LastBlock = element.blockNumber;
                                     Callback(element)
                                 });
                             }
                     });            
                 StartingBlock += BlockIncrement;
             }
-            
-            console.log("|- now listening to Seaman's Example new events...");
-            
-            SeamanEvents.events.allEvents({
-                fromBlock: MaxBlock + 1,
-                to: "latest"
-            }, function(error, result){ 
-                if(!error) {
-                    Callback(result);
-                }
-                else
-                    console.error(console.log("ERROR@ListenToSeamanMAINNET at :166: " + error));
-            });
+
         });
     },
 
     ListenToSeamanROPSTEN: function(Callback) {
+        console.log("|- ListenToSeamanROPSTEN(...)");
         const Web3 = this.Web3ConnectionROPSTEN();
         const SeamansAddress = this.SeamansExamples_ROPSTEN_ADDRESS();
         const SeamansJSON = this.SeamansExamples_JSON();
         const Seaman = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, Web3);
         const SeamanEvents = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, this.Web3WebSocketROPSTEN());
 
-        console.log("|- listening to Seaman's Example past events...");
+        if(!this.LastBlock)
+            this.LastBlock = 0;
+
         Web3.eth.getBlockNumber().then(MaxBlock => { 
-            var StartingBlock = this.SeamansStartingBlockROPSTEN();
-            var BlockIncrement = 300;
+            var StartingBlock = this.LastBlock < this.SeamansStartingBlockROPSTEN() ? this.SeamansStartingBlockROPSTEN() : this.LastBlock + 1;
+            var BlockIncrement = 500;
             
-            console.log("|- starting block = " + StartingBlock + " // current block = " + MaxBlock + " / block increment = " + BlockIncrement);
+            console.log("|- last block = " + this.LastBlock + " // starting block = " + StartingBlock + " // current block = " + MaxBlock + " // block increment = " + BlockIncrement);
             
             while(StartingBlock < MaxBlock) { 
                 SeamanEvents.getPastEvents({}, {fromBlock: StartingBlock,  toBlock: StartingBlock + BlockIncrement},
@@ -131,25 +127,14 @@ module.exports =  {
                             if(logs.length > 0) {
                                 console.log("length: " + logs.length);
                                 (logs).forEach(element => {
+                                    if(element.blockNumber > this.LastBlock)
+                                        this.LastBlock = element.blockNumber;
                                     Callback(element)
                                 });
                             }
                     });            
                 StartingBlock += BlockIncrement;
             }
-            
-            console.log("|- now listening to Seaman's Example new events...");
-            
-            SeamanEvents.events.allEvents({
-                fromBlock: MaxBlock + 1,
-                to: "latest"
-            }, function(error, result){ 
-                if(!error) {
-                    Callback(result);
-                }
-                else
-                    console.error(console.log("ERROR@ListenToSeamanROPSTEN at :262: " + error));
-            });
         });
     },
     
