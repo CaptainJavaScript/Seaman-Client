@@ -58,7 +58,7 @@ var IsMainnet = false;
 
 
 ContractConnector.ListenToSeaman(IsMainnet, (element) => {
-    console.log("--> SEMAN [" + element.blockNumber + "] " + element.event + ": " + element.returnValues[0]);
+    console.log("--> SEAMAN [" + element.blockNumber + "] " + element.event + ": " + element.returnValues[0]);
 },
 (error) => { 
     console.log(error); 
@@ -73,20 +73,20 @@ Running this code with **node Seaman-Client.js** outputs:
 |- starting block = 4702540 // current block = 4709890 / block increment = 300
 |- now listening to Seaman's Example new events...
 length: 1
---> SEMAN [4708753] ResultLog: Ring Ring Seaman! Calling ship's bell worked! JobId = 3
+--> SEAMAN [4708753] ResultLog: Ring Ring Seaman! Calling ship's bell worked! JobId = 3
 length: 1
---> SEMAN [4709424] ResultLog: Ring Ring Seaman! Calling ship's bell worked! JobId = 3
+--> SEAMAN [4709424] ResultLog: Ring Ring Seaman! Calling ship's bell worked! JobId = 3
 length: 5
---> SEMAN [4709464] ResultLog: WolframAlphaExample returned the following result: <{"version":"0.2","spellingCorrection":"on","buildnumber":"6095074","query":[{"i":"France","accepted":"true","timing":"2.49","domain":"countries","resultsignificancescore":"70","summarybox":{"path":"countries/e/br/du/gh"}}]}>
---> SEMAN [4709464] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
---> SEMAN [4709608] ResultLog: Ring Ring Seaman! Calling ship's bell worked! JobId = 3
---> SEMAN [4709609] ResultLog: WolframAlphaExample returned the following result: <{"version":"0.2","spellingCorrection":"on","buildnumber":"6089218","query":[{"i":"France","accepted":"true","timing":"2.43","domain":"countries","resultsignificancescore":"70","summarybox":{"path":"countries/e/br/du/gh"}}]}>
---> SEMAN [4709609] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
+--> SEAMAN [4709464] ResultLog: WolframAlphaExample returned the following result: <{"version":"0.2","spellingCorrection":"on","buildnumber":"6095074","query":[{"i":"France","accepted":"true","timing":"2.49","domain":"countries","resultsignificancescore":"70","summarybox":{"path":"countries/e/br/du/gh"}}]}>
+--> SEAMAN [4709464] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
+--> SEAMAN [4709608] ResultLog: Ring Ring Seaman! Calling ship's bell worked! JobId = 3
+--> SEAMAN [4709609] ResultLog: WolframAlphaExample returned the following result: <{"version":"0.2","spellingCorrection":"on","buildnumber":"6089218","query":[{"i":"France","accepted":"true","timing":"2.43","domain":"countries","resultsignificancescore":"70","summarybox":{"path":"countries/e/br/du/gh"}}]}>
+--> SEAMAN [4709609] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
 length: 4
---> SEMAN [4709829] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
---> SEMAN [4709829] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
---> SEMAN [4709829] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
---> SEMAN [4709858] ResultLog: WolframAlphaExample returned the following result: <{"version":"0.2","spellingCorrection":"on","buildnumber":"6095074","query":[{"i":"Spain","accepted":"true","timing":"2.07","domain":"countries","resultsignificancescore":"70","summarybox":{"path":"countries/e/2m/y9/9y"}}]}>
+--> SEAMAN [4709829] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
+--> SEAMAN [4709829] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
+--> SEAMAN [4709829] ResultLog: CentimeterToInchExample returned the following result: <[object Object]>
+--> SEAMAN [4709858] ResultLog: WolframAlphaExample returned the following result: <{"version":"0.2","spellingCorrection":"on","buildnumber":"6095074","query":[{"i":"Spain","accepted":"true","timing":"2.07","domain":"countries","resultsignificancescore":"70","summarybox":{"path":"countries/e/2m/y9/9y"}}]}>
 ```
 
 Running the _WolframAlpha_ example outputs:
