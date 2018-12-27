@@ -11,7 +11,7 @@ Please install _web3_ and _ethereumjs-tx_
 ## infura.io
 + Goto _infura.io_ and create a free account if you don't have one
 + Inside _infura.io_ create a new project that connects to **mainnet** _(or one that connects to **ropsten**)_
-+ Whitelist _SeamansExamples_ with address _0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6_ in your project
++ Whitelist _SeamansExamples_ with address _0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6_ (mainnet) or _0x2c53859c18da0e286161f1649e6a5fdabcb9bb98_ (ropsten) in your project
 + DONE
 
 
