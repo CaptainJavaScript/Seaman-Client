@@ -101,4 +101,4 @@ Running the _WolframAlpha_ example outputs:
 got txHash: 0x2b3a55a7efc5ac3624360b5c3d660eaf5b0dd216afd4f6d6db986b8f58b23dcf
 ```
 
-![useful image](shot-2.jpg)
+![useful image](shot-2.JPG)
