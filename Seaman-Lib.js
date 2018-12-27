@@ -1,202 +1,43 @@
 module.exports =  {
 
+    PrivateKey: function() {
+        return "<your key>";
+    },
+
+    PrivateKeyROPSTEN: function() {
+        return "<your key>";
+    },
+
     Web3ConnectionMAINNET: function() {
         const URL = "https://mainnet.infura.io/v3/<your key>";  
+        //console.log("|- mainnet @ " + URL);
         const Web3 = require('web3');
         var web3 = new Web3();
         web3.setProvider(new Web3.providers.HttpProvider(URL));
         return web3;
     },
 
-    PrivateKey: function() {
-        return "<your key>";
+    Web3ConnectionROPSTEN: function() {
+        const URL = "https://ropsten.infura.io/v3/<your key>"; 
+        const Web3 = require('web3');
+        var web3 = new Web3();
+        web3.setProvider(new Web3.providers.HttpProvider(URL));
+        return web3;
     },
 
 
-    ToGWei: function(Amount) {
-        return Amount * 1000000000;
+    SeamansStartingBlockROPSTEN: function() {
+        return 4702540;
     },
-
-
-    SeamansExamples_MAINNET_ADDRESS: function() {
-        return "0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6";        
+    
+    ConnectToContract_1_0_0_beta: function(ContractAddress, JSONFile, web3) {
+        const fs = require("fs");
+        var ABI = JSON.parse(
+            fs.readFileSync(JSONFile)
+        );
+        var IContract = new web3.eth.Contract(ABI.abi, ContractAddress);
+        return IContract;
     },
-
-    Seaman_JSON: function() {
-        return [
-            {
-              "constant": false,
-              "inputs": [
-                {
-                  "name": "VoucherCode",
-                  "type": "string"
-                }
-              ],
-              "name": "ActivateVoucher",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "constant": false,
-              "inputs": [
-                {
-                  "name": "Amount",
-                  "type": "uint256"
-                }
-              ],
-              "name": "Payout",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "constant": false,
-              "inputs": [
-                {
-                  "name": "NewAddress",
-                  "type": "address"
-                }
-              ],
-              "name": "SetCaptainsAddress",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "constant": false,
-              "inputs": [],
-              "name": "Destruct",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "inputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "constructor"
-            },
-            {
-              "payable": true,
-              "stateMutability": "payable",
-              "type": "fallback"
-            },
-            {
-              "anonymous": false,
-              "inputs": [
-                {
-                  "indexed": false,
-                  "name": "Text",
-                  "type": "string"
-                }
-              ],
-              "name": "ResultLog",
-              "type": "event"
-            },
-            {
-              "constant": false,
-              "inputs": [],
-              "name": "UseVoucher",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "constant": false,
-              "inputs": [],
-              "name": "CallbackExample",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "constant": false,
-              "inputs": [
-                {
-                  "name": "Country",
-                  "type": "string"
-                }
-              ],
-              "name": "WolframAlphaExample",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "constant": false,
-              "inputs": [
-                {
-                  "name": "Centimeter",
-                  "type": "string"
-                }
-              ],
-              "name": "CentimeterToInchExample",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "constant": false,
-              "inputs": [
-                {
-                  "name": "UniqueJobIdentifier",
-                  "type": "uint256"
-                },
-                {
-                  "name": "Result",
-                  "type": "string"
-                }
-              ],
-              "name": "CaptainsResult",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "constant": false,
-              "inputs": [
-                {
-                  "name": "UniqueJobIdentifier",
-                  "type": "uint256"
-                },
-                {
-                  "name": "Error",
-                  "type": "string"
-                }
-              ],
-              "name": "CaptainsError",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "constant": false,
-              "inputs": [
-                {
-                  "name": "UniqueIdentifier",
-                  "type": "uint256"
-                }
-              ],
-              "name": "RingRing",
-              "outputs": [],
-              "payable": false,
-              "stateMutability": "nonpayable",
-              "type": "function"
-            }
-          ];
-    },
-
  
     SeamanStartingBlockMAINNET: function() {
         return 6932603;
@@ -208,18 +49,24 @@ module.exports =  {
         return Instance;
     },
 
- 
-    ConnectToContract: function(ContractAddress, ABI, web3) {
-        var IContract = new web3.eth.Contract(ABI, ContractAddress);
-        return IContract;
+
+    ListenToSeaman: function(IsMainnet, Callback) {
+        if(IsMainnet)
+            this.ListenToSeamanMAINNET(Callback);
+        else
+            this.ListenToSeamanROPSTEN(Callback);
+    }, 
+
+    SeamansExamples_JSON: function() {
+        return "./SeamansExamples.json";
     },
 
     ListenToSeamanMAINNET: function(Callback) {
         const Web3 = this.Web3ConnectionMAINNET();
         const SeamansAddress = this.SeamansExamples_MAINNET_ADDRESS();
-        const SeamansJSON = this.Seaman_JSON();
+        const SeamansJSON = this.SeamansExamples_JSON();
         const Seaman = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, Web3);
-        const SeamanEvents = this.ConnectToContract(SeamansAddress, SeamansJSON, this.Web3WebSocketMAINNET());
+        const SeamanEvents = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, this.Web3WebSocketMAINNET());
 
         console.log("|- listening to Seaman's Example past events...");
         Web3.eth.getBlockNumber().then(MaxBlock => { 
@@ -238,8 +85,7 @@ module.exports =  {
                             if(logs.length > 0) {
                                 console.log("length: " + logs.length);
                                 (logs).forEach(element => {
-                                    if(element.address == this.SeamanAtMainnet().address)
-                                        Callback(element)
+                                    Callback(element)
                                 });
                             }
                     });            
@@ -253,15 +99,66 @@ module.exports =  {
                 to: "latest"
             }, function(error, result){ 
                 if(!error) {
-                    if(result.address == this.SeamanAtMainnet().address)
-                        Callback(result);
+                    Callback(result);
                 }
                 else
-                    console.error(console.log("ERROR@ListenToSeamanMAINNET at :260: " + error));
+                    console.error(console.log("ERROR@ListenToSeamanMAINNET at :166: " + error));
             });
         });
     },
 
+    ListenToSeamanROPSTEN: function(Callback) {
+        const Web3 = this.Web3ConnectionROPSTEN();
+        const SeamansAddress = this.SeamansExamples_ROPSTEN_ADDRESS();
+        const SeamansJSON = this.SeamansExamples_JSON();
+        const Seaman = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, Web3);
+        const SeamanEvents = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, this.Web3WebSocketROPSTEN());
+
+        console.log("|- listening to Seaman's Example past events...");
+        Web3.eth.getBlockNumber().then(MaxBlock => { 
+            var StartingBlock = this.SeamansStartingBlockROPSTEN();
+            var BlockIncrement = 300;
+            
+            console.log("|- starting block = " + StartingBlock + " // current block = " + MaxBlock + " / block increment = " + BlockIncrement);
+            
+            while(StartingBlock < MaxBlock) { 
+                SeamanEvents.getPastEvents({}, {fromBlock: StartingBlock,  toBlock: StartingBlock + BlockIncrement},
+                    (error, logs) =>
+                    {
+                        if (error) 
+                            console.error(console.log("ERROR@ListenToSeamanROPSTEN at :240: " + error));
+                        else
+                            if(logs.length > 0) {
+                                console.log("length: " + logs.length);
+                                (logs).forEach(element => {
+                                    Callback(element)
+                                });
+                            }
+                    });            
+                StartingBlock += BlockIncrement;
+            }
+            
+            console.log("|- now listening to Seaman's Example new events...");
+            
+            SeamanEvents.events.allEvents({
+                fromBlock: MaxBlock + 1,
+                to: "latest"
+            }, function(error, result){ 
+                if(!error) {
+                    Callback(result);
+                }
+                else
+                    console.error(console.log("ERROR@ListenToSeamanROPSTEN at :262: " + error));
+            });
+        });
+    },
+    
+    Invoke_WolframAlphaExample_AtSeaman: function(IsMainnet, Country) { 
+        if(IsMainnet)
+            this.Invoke_WolframAlphaExample_AtSeamanMAINNET(Country);
+        else
+            this.Invoke_WolframAlphaExample_AtSeamanROPSTEN(Country);
+    },
 
     Invoke_WolframAlphaExample_AtSeamanMAINNET: function(Country) {
         const Web3 = this.Web3ConnectionMAINNET();
@@ -278,6 +175,28 @@ module.exports =  {
         });
     },
 
+    Invoke_WolframAlphaExample_AtSeamanROPSTEN: function(Country) {
+        const Web3 = this.Web3ConnectionROPSTEN();
+        const SeamansAddress = this.SeamansExamples_ROPSTEN_ADDRESS();
+        const SeamansJSON = this.SeamansExamples_JSON();
+        const Seaman = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, Web3);
+
+        this.Invoke(Web3, this.SeamansExamples_ROPSTEN_ADDRESS(), 900000, this.ToGWei(20), 0, Seaman.methods.WolframAlphaExample(Country).encodeABI(), (txHash) => {
+            console.log("got txHash: " + txHash);
+            Web3.eth.getTransactionReceipt(txHash).then((txReceipt) => {
+                if(txReceipt)
+                    console.log(txReceipt);
+            });
+        });
+    },
+
+    Invoke_CallbackExample_AtSeaman: function(IsMainnet) {
+        if(IsMainnet)
+            this.Invoke_CallbackExample_AtSeamanMAINNET();
+        else
+            this.Invoke_CallbackExample_AtSeamanROPSTEN();
+    },
+
     Invoke_CallbackExample_AtSeamanMAINNET: function() {
         const Web3 = this.Web3ConnectionMAINNET();
         const SeamansAddress = this.SeamansExamples_MAINNET_ADDRESS();
@@ -291,6 +210,29 @@ module.exports =  {
                     console.log(txReceipt);
             });
         });
+    },
+
+    Invoke_CallbackExample_AtSeamanROPSTEN: function() {
+        const Web3 = this.Web3ConnectionROPSTEN();
+        const SeamansAddress = this.SeamansExamples_ROPSTEN_ADDRESS();
+        const SeamansJSON = this.SeamansExamples_JSON();
+        const Seaman = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, Web3);
+
+        this.Invoke(Web3, this.SeamansExamples_ROPSTEN_ADDRESS(), 150000, this.ToGWei(20), 0, Seaman.methods.CallbackExample().encodeABI(), (txHash) => {
+            console.log("got txHash: " + txHash);
+            Web3.eth.getTransactionReceipt(txHash).then((txReceipt) => {
+                if(txReceipt)
+                    console.log(txReceipt);
+            });
+        });
+    },
+
+    
+    Invoke_ActivateVoucher_AtSeaman: function(IsMainnet) { 
+        if(IsMainnet) 
+            this.Invoke_ActivateVoucher_AtSeamanMAINNET();
+        else
+            this.Invoke_ActivateVoucher_AtSeamanROPSTEN();
     },
 
     Invoke_ActivateVoucher_AtSeamanMAINNET: function() {
@@ -309,6 +251,28 @@ module.exports =  {
     },
 
 
+    Invoke_ActivateVoucher_AtSeamanROPSTEN: function() {
+        const Web3 = this.Web3ConnectionROPSTEN();
+        const SeamansAddress = this.SeamansExamples_ROPSTEN_ADDRESS();
+        const SeamansJSON = this.SeamansExamples_JSON();
+        const Seaman = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, Web3);
+
+        this.Invoke(Web3, this.SeamansExamples_ROPSTEN_ADDRESS(), 60000, this.ToGWei(20), 0, Seaman.methods.UseVoucher().encodeABI(), (txHash) => {
+            console.log("got txHash: " + txHash);
+            Web3.eth.getTransactionReceipt(txHash).then((txReceipt) => {
+                if(txReceipt)
+                    console.log(txReceipt);
+            });
+        });
+    },
+
+    Invoke_CentimeterToInchExample_AtSeaman: function(IsMainnet, Centimeter) {
+        if(IsMainnet)
+            this.Invoke_CentimeterToInchExample_AtSeamanMAINNET(Centimeter);
+        else
+            this.Invoke_CentimeterToInchExample_AtSeamanROPSTEN(Centimeter);
+    },
+
     Invoke_CentimeterToInchExample_AtSeamanMAINNET: function(Centimeter) {
         const Web3 = this.Web3ConnectionMAINNET();
         const SeamansAddress = this.SeamansExamples_MAINNET_ADDRESS();
@@ -324,19 +288,68 @@ module.exports =  {
         });
     },
 
-    SeamanAtMainnet: function() {
+    Invoke_CentimeterToInchExample_AtSeamanROPSTEN: function(Centimeter) {
+        const Web3 = this.Web3ConnectionROPSTEN();
+        const SeamansAddress = this.SeamansExamples_ROPSTEN_ADDRESS();
+        const SeamansJSON = this.SeamansExamples_JSON();
+        const Seaman = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, Web3);
+
+        this.Invoke(Web3, this.SeamansExamples_ROPSTEN_ADDRESS(), 300 * 1000, this.ToGWei(20), 0, Seaman.methods.CentimeterToInchExample(Centimeter).encodeABI(), (txHash) => {
+            console.log("got txHash: " + txHash);
+            Web3.eth.getTransactionReceipt(txHash).then((txReceipt) => {
+                if(txReceipt)
+                    console.log(txReceipt);
+            });
+        });
+    },
+
+
+
+    SeamansExamples_MAINNET_ADDRESS: function() {
+        return "0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6";        
+    },
+
+    SeamansExamples_ROPSTEN_ADDRESS: function() {
+        return "0x2c53859c18da0e286161f1649e6a5fdabcb9bb98";        
+    },
+
+    Web3WebSocketMAINNET: function () {
+        const Web3 = require('web3');
+        var Instance = new Web3(new Web3.providers.WebsocketProvider('wss://mainnet.infura.io/ws'));
+        return Instance;
+    },
+
+
+    Web3WebSocketROPSTEN: function () {
+        const Web3 = require('web3');
+        var Instance = new Web3(new Web3.providers.WebsocketProvider('wss://ropsten.infura.io/ws'));
+        return Instance;
+    },
+
+    ToGWei: function(Amount) {
+        return Amount * 1000000000;
+    },
+    
+    OwnerAtMainnet: function() {
         const Web3 = this.Web3ConnectionMAINNET();
         return Web3.eth.accounts.privateKeyToAccount("0x" + this.PrivateKey());
     },
-   
-    Invoke: function(Web3, AddressTo, Gas, GasPrice, Wei, MethodABI, OnSuccess, OnError) {
-        console.log("|- Invoke @ " + AddressTo);
+
+    OwnerAtRopsten: function() {
+        const Web3 = this.Web3ConnectionROPSTEN();
+        return Web3.eth.accounts.privateKeyToAccount("0x" + this.PrivateKeyROPSTEN());
+    },
+
+    Invoke: function(Web3, AddressTo, Gas, GasPrice, Wei, MethodABI, OnSuccess, OnError, GlobalUniqueJobID) {
+        console.log("|- Invoke: " + (GlobalUniqueJobID ? GlobalUniqueJobID : "") + " @ " + AddressTo);
         console.log("|- Gas: " + Gas + " / GasPrice: " + GasPrice);
         
+        var IsMainnet = (Web3.currentProvider.host + "").indexOf("mainnet") > 0;
+        console.log("|- network: " + (IsMainnet ? "mainnet": "ropsten"));
         var TX = require("ethereumjs-tx");
-        var KEY = Buffer.from(this.PrivateKey(), "hex");
+        var KEY = Buffer.from(IsMainnet ? this.PrivateKey() : this.PrivateKeyROPSTEN(), "hex");
         
-        var Client = Web3.eth.accounts.privateKeyToAccount("0x" + this.PrivateKey());
+        var Client = Web3.eth.accounts.privateKeyToAccount("0x" + (IsMainnet ? this.PrivateKey() : this.PrivateKeyROPSTEN()));
 
         console.log("|- getting transaction count...");
 
@@ -346,7 +359,7 @@ module.exports =  {
             this.lastNonce = lastCountOfTransaction;
 
             console.log("|- nonce: " + lastCountOfTransaction);
-
+            
             var NONCE = "0x" + lastCountOfTransaction.toString(16);
 
             const tx = GasPrice != 0 ? {
@@ -378,14 +391,21 @@ module.exports =  {
                     if(!OnSuccess)
                         console.log("|- send successful with hash " + receipt ); 
                     else
-                        OnSuccess(receipt);
+                        if(GlobalUniqueJobID)
+                            OnSuccess(receipt, GlobalUniqueJobID);
+                        else
+                            OnSuccess(receipt);
                 })
                 .on("error", err => {
                     if(!OnError)
                         console.log("ERROR@Invoke: " + err);
                     else
-                        OnError(err);
+                        if(GlobalUniqueJobID)
+                            OnError(err, GlobalUniqueJobID);
+                        else
+                            OnError(err);
                 });
             });
     }
+
 }
