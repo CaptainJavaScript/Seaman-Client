@@ -6,7 +6,7 @@ var IsMainnet = false;
 //ContractConnector.Invoke_CentimeterToInchExample_AtSeaman(IsMainnet, "14");
 //ContractConnector.Invoke_WolframAlphaExample_AtSeaman(IsMainnet, "Spain");
 //ContractConnector.Invoke_CallbackExample_AtSeaman(IsMainnet);
-
+//ContractConnector.Invoke_JSON_Example_AtSeamanROPSTEN();
 
 var Timer = setInterval( () => {
     ContractConnector.ListenToSeaman(IsMainnet, (element) => {
