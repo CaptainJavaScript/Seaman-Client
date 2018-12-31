@@ -11,7 +11,7 @@ Please install _web3_ and _ethereumjs-tx_
 ## infura.io
 + Goto _infura.io_ and create a free account if you don't have one
 + Inside _infura.io_ create a new project that connects to **mainnet** _(or one that connects to **ropsten**)_
-+ Whitelist _SeamansExamples_ with address _0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6_ (mainnet) or _0x2c53859c18da0e286161f1649e6a5fdabcb9bb98_ (ropsten) in your project
++ Whitelist _SeamansExamples_ with address _0xd73602c134B41CAC39CdEfBF1f676Ab748c3b6B4_ (mainnet) or _0xad29f36c3563417916784d4136f25b2bff77e36e_ (ropsten) in your project
 + DONE
 
 
@@ -42,7 +42,7 @@ module.exports =  {
 ## Seaman-Client
 + Run the _Seaman-Client.js_ file
 + Wait for incoming events
-+ Make sure, the contract at _0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6_ (mainnet) or _0x2c53859c18da0e286161f1649e6a5fdabcb9bb98_ (ropsten) has enough Ether
++ Make sure the contract has enough Ether
 + DONE 
 
 
