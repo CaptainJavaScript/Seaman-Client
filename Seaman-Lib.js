@@ -56,6 +56,37 @@ module.exports =  {
         else
             this.ListenToSeamanROPSTEN(Callback);
     }, 
+    
+        Invoke_JSON_Example_AtSeamanROPSTEN: function() {
+        const Web3 = this.Web3ConnectionROPSTEN();
+        const SeamansAddress = this.SeamansExamples_ROPSTEN_ADDRESS();
+        const SeamansJSON = this.SeamansExamples_JSON();
+        const Seaman = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, Web3);
+
+        this.Invoke(Web3, SeamansAddress, 60000, this.ToGWei(20), 0, Seaman.methods.JSONqueryExample().encodeABI(), (txHash) => {
+            console.log("got txHash: " + txHash);
+            Web3.eth.getTransactionReceipt(txHash).then((txReceipt) => {
+                if(txReceipt)
+                    console.log(txReceipt);
+            });
+        });
+    },
+
+    
+    Invoke_HTML_Example_AtSeamanROPSTEN: function() {
+        const Web3 = this.Web3ConnectionROPSTEN();
+        const SeamansAddress = this.SeamansExamples_ROPSTEN_ADDRESS();
+        const SeamansJSON = this.SeamansExamples_JSON();
+        const Seaman = this.ConnectToContract_1_0_0_beta(SeamansAddress, SeamansJSON, Web3);
+
+        this.Invoke(Web3, SeamansAddress, 60000, this.ToGWei(20), 0, Seaman.methods.HTMLqueryExample().encodeABI(), (txHash) => {
+            console.log("got txHash: " + txHash);
+            Web3.eth.getTransactionReceipt(txHash).then((txReceipt) => {
+                if(txReceipt)
+                    console.log(txReceipt);
+            });
+        });
+    },
 
     SeamansExamples_JSON: function() {
         return "./SeamansExamples.json";
@@ -289,13 +320,12 @@ module.exports =  {
     },
 
 
-
     SeamansExamples_MAINNET_ADDRESS: function() {
-        return "0xfcd53089c3de49fa8c6cc8330cd9f49e84b01cd6";        
+        return "0xd73602c134B41CAC39CdEfBF1f676Ab748c3b6B4";        
     },
 
     SeamansExamples_ROPSTEN_ADDRESS: function() {
-        return "0x2c53859c18da0e286161f1649e6a5fdabcb9bb98";        
+        return "0xad29f36c3563417916784d4136f25b2bff77e36e";        
     },
 
     Web3WebSocketMAINNET: function () {
