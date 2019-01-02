@@ -80,6 +80,29 @@ module.exports = {
         return false;
     },
     
+    IsMATHrequest: function(MathExpression) {
+        if(MathExpression)
+            if(MathExpression.startsWith("math:"))
+                return true;
+        
+        return false;
+    },
+
+    MATH_JOB: function(MathExpression) {
+        const Math = require("mathjs");
+        var MathResult = "none";
+        var Query = "MathResult = Math." + MathExpression;
+        eval(Query);
+        return MathResult;
+    },
+   
+    ChopMath: function(MathExpression) {
+        if(this.IsMATHrequest(MathExpression))
+            return MathExpression.substring(5);
+
+        return MathExpression;
+    },
+    
     ChopURL: function (URL) {
         if(this.IsJSONrequest(URL) || this.IsHTMLrequest(URL))
             return URL.substring(5);
